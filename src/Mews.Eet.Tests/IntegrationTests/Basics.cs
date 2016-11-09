@@ -2,13 +2,14 @@
 using Mews.Eet.Dto;
 using Mews.Eet.Dto.Identifiers;
 using Xunit;
+using System.Threading.Tasks;
 
 namespace Mews.Eet.Tests.IntegrationTests
 {
     public class Basics
     {
         [Fact]
-        public void SendRevenueSimple()
+        public async Task SendRevenueSimple()
         {
             var fixture = Fixtures.Second;
 
@@ -29,7 +30,7 @@ namespace Mews.Eet.Tests.IntegrationTests
                 billNumber: new BillNumber("2016-123")
             );
             var client = new EetClient(certificate, EetEnvironment.Playground);
-            var response = client.SendRevenue(record);
+            var response = await client.SendRevenueAsync(record);
             Assert.Null(response.Error);
             Assert.NotNull(response.Success);
             Assert.NotNull(response.Success.FiscalCode);
@@ -37,7 +38,7 @@ namespace Mews.Eet.Tests.IntegrationTests
         }
 
         [Fact]
-        public void SendRevenue()
+        public async Task SendRevenue()
         {
             var fixture = Fixtures.Third;
 
@@ -56,15 +57,15 @@ namespace Mews.Eet.Tests.IntegrationTests
                     gross: new CurrencyValue(1234.00m),
                     notTaxable: new CurrencyValue(0.00m),
                     standardTaxRate: new TaxRateItem(
-                        net: new CurrencyValue(100.00m), 
-                        tax: new CurrencyValue(21.00m), 
+                        net: new CurrencyValue(100.00m),
+                        tax: new CurrencyValue(21.00m),
                         goods: null
                     )
                 ),
                 billNumber: new BillNumber("2016-123")
             );
             var client = new EetClient(certificate, EetEnvironment.Playground);
-            var response = client.SendRevenue(record);
+            var response = await client.SendRevenueAsync(record);
             Assert.Null(response.Error);
             Assert.NotNull(response.Success);
             Assert.NotNull(response.Success.FiscalCode);
