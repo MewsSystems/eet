@@ -5,7 +5,7 @@ using Mews.Eet.Dto;
 
 namespace Mews.Eet
 {
-    public class EetClient : IDisposable
+    public sealed class EetClient : IDisposable
     {
         private readonly EetSoapClient eetSoapClient;
 

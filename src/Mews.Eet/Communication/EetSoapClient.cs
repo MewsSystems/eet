@@ -5,7 +5,7 @@ using Mews.Eet.Dto.Wsdl;
 
 namespace Mews.Eet.Communication
 {
-    public class EetSoapClient : IDisposable
+    public sealed class EetSoapClient : IDisposable
     {
         private readonly EetEnvironment environment;
         private readonly SoapClient soapClient;

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Mews.Eet.Communication
 {
-    public class SoapHttpClient : IDisposable
+    public sealed class SoapHttpClient : IDisposable
     {
         private readonly Uri endpointUri;
         private readonly HttpClient httpClient;

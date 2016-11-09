@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace Mews.Eet.Communication
 {
-    public class SoapClient : IDisposable
+    public sealed class SoapClient : IDisposable
     {
         private readonly SoapHttpClient httpClient;
         private readonly X509Certificate2 certificate;
