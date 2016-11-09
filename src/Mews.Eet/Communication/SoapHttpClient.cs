@@ -17,15 +17,17 @@ namespace Mews.Eet.Communication
 
         private HttpClient HttpClient { get; }
 
-        public Task<string> SendAsync(string body, string operation)
+        public async Task<string> SendAsync(string body, string operation)
         {
             HttpClient.DefaultRequestHeaders.Remove("SOAPAction");
             HttpClient.DefaultRequestHeaders.Add("SOAPAction", operation);
-            var task = HttpClient.PostAsync(
+
+            using (var postResponse = await HttpClient.PostAsync(
                 EndpointUri,
-                new StringContent(body, Encoding.UTF8, "application/x-www-form-urlencoded")
-            );
-            return task.ContinueWith(t => t.Result.Content.ReadAsStringAsync()).Unwrap();
+                new StringContent(body, Encoding.UTF8, "application/x-www-form-urlencoded")).ConfigureAwait(false))
+            {
+                return await postResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
         }
     }
 }
