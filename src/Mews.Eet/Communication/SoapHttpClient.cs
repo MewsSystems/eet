@@ -17,7 +17,7 @@ namespace Mews.Eet.Communication
 
         private HttpClient HttpClient { get; }
 
-        public Task<string> Send(string body, string operation)
+        public Task<string> SendAsync(string body, string operation)
         {
             HttpClient.DefaultRequestHeaders.Remove("SOAPAction");
             HttpClient.DefaultRequestHeaders.Add("SOAPAction", operation);
