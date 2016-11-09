@@ -11,7 +11,6 @@ namespace Mews.Eet.Dto
             Password = password;
             Data = data;
             Key = ComputeKey();
-            X509Certificate2 = new X509Certificate2(Data, Password);
         }
 
         public string Password { get; }
@@ -19,8 +18,6 @@ namespace Mews.Eet.Dto
         public byte[] Data { get; }
 
         public RSACryptoServiceProvider Key { get; }
-
-        public X509Certificate2 X509Certificate2 { get; }
 
         private RSACryptoServiceProvider ComputeKey()
         {
@@ -33,7 +30,7 @@ namespace Mews.Eet.Dto
                     continue;
                 }
 
-                var key = certificate.PrivateKey as RSACryptoServiceProvider;
+                var key = (RSACryptoServiceProvider)certificate.PrivateKey;
                 var exportParameters = key.ExportParameters(includePrivateParameters: true);
                 var cspParameters = new CspParameters { ProviderName = "Microsoft Enhanced RSA and AES Cryptographic Provider" };
                 var result = new RSACryptoServiceProvider(cspParameters);
