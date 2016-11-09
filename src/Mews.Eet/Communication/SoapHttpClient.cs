@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Mews.Eet.Communication
 {
-    public class SoapHttpClient
+    public class SoapHttpClient : IDisposable
     {
         public SoapHttpClient(Uri endpointUri)
         {
@@ -28,6 +28,11 @@ namespace Mews.Eet.Communication
             {
                 return await postResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
             }
+        }
+
+        public void Dispose()
+        {
+            HttpClient.Dispose();
         }
     }
 }

@@ -5,7 +5,7 @@ using Mews.Eet.Dto.Wsdl;
 
 namespace Mews.Eet.Communication
 {
-    public class EetSoapClient
+    public class EetSoapClient : IDisposable
     {
         public EetSoapClient(Certificate certificate, EetEnvironment environment)
         {
@@ -22,6 +22,11 @@ namespace Mews.Eet.Communication
         public Task<SendRevenueXmlResponse> SendRevenueAsync(SendRevenueXmlMessage message)
         {
             return SoapClient.SendAsync<SendRevenueXmlMessage, SendRevenueXmlResponse>(message, operation: "http://fs.mfcr.cz/eet/OdeslaniTrzby");
+        }
+
+        public void Dispose()
+        {
+            SoapClient.Dispose();
         }
     }
 }

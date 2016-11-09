@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace Mews.Eet.Communication
 {
-    public class SoapClient
+    public class SoapClient : IDisposable
     {
         public SoapClient(Uri endpointUri, X509Certificate2 certificate, SignAlgorithm signAlgorithm = SignAlgorithm.Sha256)
         {
@@ -36,6 +36,11 @@ namespace Mews.Eet.Communication
             var soapBody = GetSoapBody(response);
 
             return XmlManipulator.Deserialize<TOut>(soapBody);
+        }
+
+        public void Dispose()
+        {
+            HttpClient.Dispose();
         }
 
         private XmlElement GetSoapBody(string soapXmlString)
