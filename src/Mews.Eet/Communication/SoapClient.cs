@@ -8,39 +8,36 @@ namespace Mews.Eet.Communication
 {
     public class SoapClient : IDisposable
     {
+        private readonly SoapHttpClient httpClient;
+        private readonly X509Certificate2 certificate;
+        private readonly SignAlgorithm signAlgorithm;
+        private readonly XmlManipulator xmlManipulator;
+
         public SoapClient(Uri endpointUri, X509Certificate2 certificate, SignAlgorithm signAlgorithm = SignAlgorithm.Sha256)
         {
-            HttpClient = new SoapHttpClient(endpointUri);
-            Certificate = certificate;
-            SignAlgorithm = signAlgorithm;
-            XmlManipulator = new XmlManipulator();
+            httpClient = new SoapHttpClient(endpointUri);
+            this.certificate = certificate;
+            this.signAlgorithm = signAlgorithm;
+            xmlManipulator = new XmlManipulator();
         }
-
-        private SoapHttpClient HttpClient { get; }
-
-        private X509Certificate2 Certificate { get; }
-
-        private SignAlgorithm SignAlgorithm { get; }
-
-        private XmlManipulator XmlManipulator { get; }
 
         public async Task<TOut> SendAsync<TIn, TOut>(TIn messageBodyObject, string operation)
             where TIn : class, new()
             where TOut : class, new()
         {
-            var messageBodyXmlElement = XmlManipulator.Serialize(messageBodyObject);
+            var messageBodyXmlElement = xmlManipulator.Serialize(messageBodyObject);
             var soapMessage = new SoapMessage(new SoapMessagePart(messageBodyXmlElement));
-            var xmlDocument = Certificate == null ? soapMessage.GetXmlDocument() : soapMessage.GetSignedXmlDocument(Certificate, SignAlgorithm);
+            var xmlDocument = certificate == null ? soapMessage.GetXmlDocument() : soapMessage.GetSignedXmlDocument(certificate, signAlgorithm);
 
-            var response = await HttpClient.SendAsync(xmlDocument.OuterXml, operation).ConfigureAwait(false);
+            var response = await httpClient.SendAsync(xmlDocument.OuterXml, operation).ConfigureAwait(false);
             var soapBody = GetSoapBody(response);
 
-            return XmlManipulator.Deserialize<TOut>(soapBody);
+            return xmlManipulator.Deserialize<TOut>(soapBody);
         }
 
         public void Dispose()
         {
-            HttpClient.Dispose();
+            httpClient.Dispose();
         }
 
         private XmlElement GetSoapBody(string soapXmlString)

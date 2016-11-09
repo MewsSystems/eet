@@ -7,23 +7,22 @@ namespace Mews.Eet.Communication
 {
     public class SoapHttpClient : IDisposable
     {
+        private readonly Uri endpointUri;
+        private readonly HttpClient httpClient;
+
         public SoapHttpClient(Uri endpointUri)
         {
-            EndpointUri = endpointUri;
-            HttpClient = new HttpClient();
+            this.endpointUri = endpointUri;
+            httpClient = new HttpClient();
         }
-
-        private Uri EndpointUri { get; }
-
-        private HttpClient HttpClient { get; }
 
         public async Task<string> SendAsync(string body, string operation)
         {
-            HttpClient.DefaultRequestHeaders.Remove("SOAPAction");
-            HttpClient.DefaultRequestHeaders.Add("SOAPAction", operation);
+            httpClient.DefaultRequestHeaders.Remove("SOAPAction");
+            httpClient.DefaultRequestHeaders.Add("SOAPAction", operation);
 
-            using (var postResponse = await HttpClient.PostAsync(
-                EndpointUri,
+            using (var postResponse = await httpClient.PostAsync(
+                endpointUri,
                 new StringContent(body, Encoding.UTF8, "application/x-www-form-urlencoded")).ConfigureAwait(false))
             {
                 return await postResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -32,7 +31,7 @@ namespace Mews.Eet.Communication
 
         public void Dispose()
         {
-            HttpClient.Dispose();
+            httpClient.Dispose();
         }
     }
 }
