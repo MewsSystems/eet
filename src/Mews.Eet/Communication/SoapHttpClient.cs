@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,11 @@ namespace Mews.Eet.Communication
     {
         private readonly Uri endpointUri;
         private readonly HttpClient httpClient;
+
+        static SoapHttpClient()
+        {
+           EnableTls12();
+        }
 
         public SoapHttpClient(Uri endpointUri)
         {
@@ -32,6 +38,11 @@ namespace Mews.Eet.Communication
         public void Dispose()
         {
             httpClient.Dispose();
+        }
+
+        private static void EnableTls12()
+        {
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
         }
     }
 }
