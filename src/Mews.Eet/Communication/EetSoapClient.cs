@@ -1,27 +1,33 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Mews.Eet.Dto;
 using Mews.Eet.Dto.Wsdl;
 
 namespace Mews.Eet.Communication
 {
-    public class EetSoapClient
+    public sealed class EetSoapClient : IDisposable
     {
+        private readonly X509Certificate2 x509certificate;
+        private readonly SoapClient soapClient;
+
         public EetSoapClient(Certificate certificate, EetEnvironment environment)
         {
-            Environment = environment;
             var subdomain = environment == EetEnvironment.Production ? "prod" : "pg";
             var endpointUri = new Uri($"https://{subdomain}.eet.cz:443/eet/services/EETServiceSOAP/v3");
-            SoapClient = new SoapClient(endpointUri, certificate.X509Certificate2);
+            x509certificate = new X509Certificate2(certificate.Data, certificate.Password);
+            soapClient = new SoapClient(endpointUri, x509certificate);
         }
 
-        public EetEnvironment Environment { get; }
-
-        private SoapClient SoapClient { get; }
-
-        public Task<SendRevenueXmlResponse> SendRevenue(SendRevenueXmlMessage message)
+        public Task<SendRevenueXmlResponse> SendRevenueAsync(SendRevenueXmlMessage message)
         {
-            return SoapClient.Send<SendRevenueXmlMessage, SendRevenueXmlResponse>(message, operation: "http://fs.mfcr.cz/eet/OdeslaniTrzby");
+            return soapClient.SendAsync<SendRevenueXmlMessage, SendRevenueXmlResponse>(message, operation: "http://fs.mfcr.cz/eet/OdeslaniTrzby");
+        }
+
+        public void Dispose()
+        {
+            soapClient.Dispose();
+            x509certificate.Dispose();
         }
     }
 }

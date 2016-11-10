@@ -1,27 +1,30 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Mews.Eet.Communication;
 using Mews.Eet.Dto;
 
 namespace Mews.Eet
 {
-    public class EetClient
+    public sealed class EetClient : IDisposable
     {
+        private readonly EetSoapClient eetSoapClient;
+
         public EetClient(Certificate certificate, EetEnvironment environment = EetEnvironment.Production)
         {
-            EetSoapClient = new EetSoapClient(certificate, environment);
+            eetSoapClient = new EetSoapClient(certificate, environment);
         }
 
-        private EetSoapClient EetSoapClient { get; }
-
-        public SendRevenueResult SendRevenue(RevenueRecord record, EetMode mode = EetMode.Operational)
+        public async Task<SendRevenueResult> SendRevenueAsync(RevenueRecord record, EetMode mode = EetMode.Operational)
         {
-            return SendRevenueAsync(record, mode).Result;
+            var message = new SendRevenueMessage(record, mode).GetXmlMessage();
+            var revenueResponse = await eetSoapClient.SendRevenueAsync(message).ConfigureAwait(false);
+
+            return new SendRevenueResult(revenueResponse);
         }
 
-        public Task<SendRevenueResult> SendRevenueAsync(RevenueRecord record, EetMode mode = EetMode.Operational)
+        public void Dispose()
         {
-            var task = EetSoapClient.SendRevenue(new SendRevenueMessage(record, mode).GetXmlMessage());
-            return task.ContinueWith(t => Task.FromResult(new SendRevenueResult(t.Result))).Unwrap();
+            eetSoapClient.Dispose();
         }
     }
 }
