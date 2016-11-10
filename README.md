@@ -39,7 +39,7 @@ var record = new RevenueRecord(
 );
 
 var client = new EetClient(certificate);
-var response = client.SendRevenue(record);
+var response = await client.SendRevenueAsync(record);
 if (response.IsSuccess)
 {
     var fiscalCode = response.Success.FiscalCode;
