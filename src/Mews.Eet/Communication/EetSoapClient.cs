@@ -8,13 +8,11 @@ namespace Mews.Eet.Communication
 {
     public sealed class EetSoapClient : IDisposable
     {
-        private readonly EetEnvironment environment;
         private readonly X509Certificate2 x509certificate;
         private readonly SoapClient soapClient;
 
         public EetSoapClient(Certificate certificate, EetEnvironment environment)
         {
-            this.environment = environment;
             var subdomain = environment == EetEnvironment.Production ? "prod" : "pg";
             var endpointUri = new Uri($"https://{subdomain}.eet.cz:443/eet/services/EETServiceSOAP/v3");
             x509certificate = new X509Certificate2(certificate.Data, certificate.Password);
