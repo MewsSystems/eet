@@ -9,7 +9,7 @@ namespace Mews.Eet.Dto
     {
         public RevenueRecord(Identification identification, Revenue revenue, BillNumber billNumber, bool isFirstAttempt = true, EvidenceMode mode = EvidenceMode.Online)
         {
-            Identifier = Guid.NewGuid();
+            Identifier = new Uuid4(Guid.NewGuid());
             Identification = identification;
             Revenue = revenue;
             BillNumber = billNumber;
@@ -17,15 +17,9 @@ namespace Mews.Eet.Dto
             Mode = mode;
             Signature = Convert.ToBase64String(GetSignatureBytes());
             SecurityCode = GetSecurityCode();
-
-            //// The generated GUID should comply with UUID v4.0. This is meant to be a sanity check just to make sure the EET specs are correct.
-            if (!StringHelpers.SafeMatches(Identifier.ToString(), Patterns.UUID))
-            {
-                throw new ArgumentException("The generated message UUID does not comply with EET requirements.");
-            }
         }
 
-        public Guid Identifier { get; }
+        public Uuid4 Identifier { get; }
 
         public Identification Identification { get; }
 

@@ -31,7 +31,7 @@ namespace Mews.Eet.Communication
         {
             return new RevenueHeader
             {
-                MessageUuid = RevenueRecord.Identifier.ToString(),
+                MessageUuid = RevenueRecord.Identifier.Value.ToString(),
                 Sent = DateTimeConverter.ToEetDateTime(DateTimeProvider.Now),
                 FirstTry = RevenueRecord.IsFirstAttempt,
                 Verification = EetMode == EetMode.Verification,

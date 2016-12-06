@@ -10,15 +10,6 @@ namespace Mews.Eet
     /// </summary>
     public static class StringHelpers
     {
-        public static bool SafeMatches(string haystack, string pattern)
-        {
-            if (String.IsNullOrEmpty(haystack) || String.IsNullOrWhiteSpace(pattern))
-            {
-                return false;
-            }
-            return Regex.Match(haystack, pattern).Success;
-        }
-
         public static string FormatForEet(DateTimeWithTimeZone dateTime)
         {
             return DateTimeConverter.ToEetDateTime(dateTime).ToString("yyyy-MM-dd'T'HH:mm:sszzz");

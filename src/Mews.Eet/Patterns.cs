@@ -1,25 +1,15 @@
-﻿namespace Mews.Eet
+﻿using System.Text.RegularExpressions;
+
+namespace Mews.Eet
 {
     public class Patterns
     {
-        public static string BillNumber
-        {
-            get { return "^[0-9a-zA-Z.,:;/#-_ ]{1,25}$"; }
-        }
+        public static readonly Regex BillNumber = new Regex("^[0-9a-zA-Z.,:;/#-_ ]{1,25}$");
 
-        public static string RegistryIdentifier
-        {
-            get { return "^[0-9a-zA-Z.,:;/#-_]{1,20}$"; }
-        }
+        public static readonly Regex RegistryIdentifier = new Regex("^[0-9a-zA-Z.,:;/#-_]{1,20}$");
 
-        public static string TaxIdentifier
-        {
-            get { return "^CZ[0-9]{8,10}$"; }
-        }
+        public static readonly Regex TaxIdentifier = new Regex("^CZ[0-9]{8,10}$");
 
-        public static string UUID
-        {
-            get { return "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fAF]{3}-[0-9a-fA-F]{12}$"; }
-        }
+        public static readonly Regex Uuid4 = new Regex("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fAF]{3}-[0-9a-fA-F]{12}$");
     }
 }
