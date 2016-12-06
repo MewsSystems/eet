@@ -7,27 +7,41 @@ namespace Mews.Eet.Dto
         public CurrencyValue(decimal value)
         {
             var decimalPlaces = BitConverter.GetBytes(Decimal.GetBits(value)[3])[2];
-            if (decimalPlaces != 2)
+            if (decimalPlaces > 2)
             {
-                throw new ArgumentException("EET requires the currency values to be reported with 2 decimal places.");
+                throw new ArgumentException("EET requires the currency values to have at most 2 decimal places.");
             }
 
-            if (value > 99999999.99m)
+            var sanitizedValue = EnsureMinimalPrecision(value, decimalPlaces);
+            if (sanitizedValue > 99999999.99m)
             {
                 throw new ArgumentException("The value cannot be higher than 99 999 999,99 Kč.");
             }
 
-            if (value < -99999999.99m)
+            if (sanitizedValue < -99999999.99m)
             {
                 throw new ArgumentException("The value cannot be lower than -99 999 999,99 Kč.");
             }
 
-            Value = value;
+            Value = sanitizedValue;
             CurrencyIsoCode = "CZK";
         }
 
         public string CurrencyIsoCode { get; }
 
         internal decimal Value { get; }
+
+        private decimal EnsureMinimalPrecision(decimal value, int placesCount)
+        {
+            switch (placesCount)
+            {
+                case 0:
+                    return value * 1.00m;
+                case 1:
+                    return value * 1.0m;
+                default:
+                    return value;
+            }
+        }
     }
 }

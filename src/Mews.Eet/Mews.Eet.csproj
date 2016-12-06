@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communication\RsaPkCs1Sha256SignatureDescription.cs" />
     <Compile Include="Communication\SoapHttpClient.cs" />
     <Compile Include="Communication\SoapMessagePart.cs" />
     <Compile Include="Converters\DateTimeConverter.cs" />
@@ -92,6 +93,8 @@
     <Compile Include="DateTimeProvider.cs" />
     <Compile Include="EetEnvironment.cs" />
     <Compile Include="EetMode.cs" />
+    <Compile Include="Events\XmlMessageSerializedEventArgs.cs" />
+    <Compile Include="Events\HttpRequestFinishedEventArgs.cs" />
     <Compile Include="Extensions\CurrencyValueExtensions.cs" />
     <Compile Include="Extensions\TaxRateItemsExtensions.cs" />
     <Compile Include="Communication\SendRevenueMessage.cs" />

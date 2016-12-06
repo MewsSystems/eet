@@ -25,6 +25,12 @@ namespace Mews.Eet.Tests.UnitTests
             Assert.Throws<ArgumentException>(() => new BillNumber(Guid.NewGuid().ToString()));
         }
 
+        [Fact]
+        public void BillNumberValidationIsStrict()
+        {
+            Assert.Throws<ArgumentException>(() => new BillNumber("@@@@"));
+        }
+
 
         [Fact]
         public void PremisesIdValidationWorks()
@@ -60,6 +66,15 @@ namespace Mews.Eet.Tests.UnitTests
         {
             var ex = Record.Exception(() => new PremisesIdentifier(1));
             Assert.Null(ex);
+        }
+
+        [Fact]
+        public void IdentifierToStringWorks()
+        {
+            var number = "1234";
+            var id = new BillNumber(number);
+            var str = id.ToString();
+            Assert.Equal(number, str);
         }
     }
 }

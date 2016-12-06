@@ -21,10 +21,5 @@ namespace Mews.Eet.Dto.Identifiers
                 throw new ArgumentException($"The value '{value}' does not match the pattern '{pattern}'");
             }
         }
-
-        public override string ToString()
-        {
-            return Value;
-        }
     }
 }

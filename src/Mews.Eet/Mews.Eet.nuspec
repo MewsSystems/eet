@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Mews.Eet</id>
-    <version>0.2.4</version>
+    <version>1.1.1</version>
     <title>$title$</title>
     <authors>Jiří Helmich</authors>
     <owners>Mews Systems</owners>
@@ -10,7 +10,9 @@
     <projectUrl>https://github.com/MewsSystems/eet</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Client for EET - Czech fiscal machines.</description>
-    <releaseNotes>First nuget version.</releaseNotes>
+    <releaseNotes>
+      Fixed buggy patterns for bill number and registry identifiers. They were too benevolent.
+    </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>EET Fiscal</tags>
   </metadata>

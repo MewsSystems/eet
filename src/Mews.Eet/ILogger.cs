@@ -4,44 +4,44 @@ namespace Mews.Eet
 {
     public class EetLogger
     {
-        public EetLogger(Action<string> onError, Action<string> onInfo = null, Action<string> onDebug = null)
+        public EetLogger(Action<string, object> onError, Action<string, object> onInfo = null, Action<string, object> onDebug = null)
         {
             OnError = onError;
             OnInfo = onInfo;
             OnDebug = onDebug;
         }
 
-        public EetLogger(Action<string> eagerLogger)
+        public EetLogger(Action<string, object> eagerLogger)
         {
             OnError = eagerLogger;
             OnInfo = eagerLogger;
             OnDebug = eagerLogger;
         }
 
-        private Action<string> OnError { get; }
+        private Action<string, object> OnError { get; }
 
-        private Action<string> OnInfo { get; }
+        private Action<string, object> OnInfo { get; }
 
-        private Action<string> OnDebug { get; }
+        private Action<string, object> OnDebug { get; }
 
-        public void Error(string message)
+        public void Error(string message, object details = null)
         {
-            Log(OnError, message);
+            Log(OnError, message, details);
         }
 
-        public void Info(string message)
+        public void Info(string message, object details = null)
         {
-            Log(OnInfo, message);
+            Log(OnInfo, message, details);
         }
 
-        public void Debug(string message)
+        public void Debug(string message, object details = null)
         {
-            Log(OnDebug, message);
+            Log(OnDebug, message, details);
         }
 
-        protected void Log(Action<string> loggerAction, string message)
+        protected void Log(Action<string, object> loggerAction, string message, object details)
         {
-            loggerAction?.Invoke(message);
+            loggerAction?.Invoke(message, details);
         }
     }
 }

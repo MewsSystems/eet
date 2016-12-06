@@ -15,9 +15,12 @@ namespace Mews.Eet.Tests.UnitTests
         }
 
         [Fact]
-        public void PrecisionCheckWorks()
+        public void PrecisionIncreaseWorks()
         {
-            Assert.Throws<ArgumentException>(() => new CurrencyValue(100m));
+            var ex = Record.Exception(() => new CurrencyValue(100m));
+            var ex1 = Record.Exception(() => new CurrencyValue(100.0m));
+            Assert.Null(ex);
+            Assert.Null(ex1);
         }
 
         [Fact]
