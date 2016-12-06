@@ -60,7 +60,6 @@
     <Compile Include="Dto\Identifiers\StringIdentifier.cs" />
     <Compile Include="Dto\Identifiers\RegistryIdentifier.cs" />
     <Compile Include="Dto\Identifiers\TaxIdentifier.cs" />
-    <Compile Include="Dto\Identifiers\Uuid4.cs" />
     <Compile Include="Dto\Wsdl\SecurityCodeDigestType.cs" />
     <Compile Include="Dto\Wsdl\SecurityCode.cs" />
     <Compile Include="Dto\Wsdl\SecurityCodeEncodingType.cs" />

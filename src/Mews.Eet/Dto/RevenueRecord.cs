@@ -9,7 +9,7 @@ namespace Mews.Eet.Dto
     {
         public RevenueRecord(Identification identification, Revenue revenue, BillNumber billNumber, bool isFirstAttempt = true, EvidenceMode mode = EvidenceMode.Online)
         {
-            Identifier = new Uuid4(Guid.NewGuid());
+            Identifier = Guid.NewGuid();
             Identification = identification;
             Revenue = revenue;
             BillNumber = billNumber;
@@ -19,7 +19,7 @@ namespace Mews.Eet.Dto
             SecurityCode = GetSecurityCode();
         }
 
-        public Uuid4 Identifier { get; }
+        public Guid Identifier { get; }
 
         public Identification Identification { get; }
 
