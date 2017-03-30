@@ -11,7 +11,7 @@ namespace Mews.Eet.Dto
             Password = password;
             Data = data;
             Key = ComputeKey();
-            X509Certificate2 = new X509Certificate2(Data, Password);
+            X509Certificate2 = new X509Certificate2(Data, Password, X509KeyStorageFlags.DefaultKeySet);
         }
 
         public string Password { get; }
@@ -25,7 +25,7 @@ namespace Mews.Eet.Dto
         private RSACryptoServiceProvider ComputeKey()
         {
             var certificateCollection = new X509Certificate2Collection();
-            certificateCollection.Import(Data, Password, X509KeyStorageFlags.Exportable);
+            certificateCollection.Import(Data, Password, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.Exportable);
             foreach (var certificate in certificateCollection)
             {
                 if (!certificate.HasPrivateKey)
