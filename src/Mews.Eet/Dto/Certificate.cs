@@ -12,7 +12,7 @@ namespace Mews.Eet.Dto
             Data = data;
             Key = ComputeKey();
             X509Certificate2 = new X509Certificate2(Data, Password, X509KeyStorageFlags.Exportable | X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet);
-    }
+        }
 
         public string Password { get; }
 
