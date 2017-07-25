@@ -96,6 +96,7 @@ namespace Mews.Eet.Communication
                 var key = certificate.PrivateKey as RSACryptoServiceProvider;
                 var enhCsp = new RSACryptoServiceProvider().CspKeyContainerInfo;
                 var cspparams = new CspParameters(enhCsp.ProviderType, enhCsp.ProviderName, key.CspKeyContainerInfo.KeyContainerName);
+                cspparams.Flags = CspProviderFlags.UseMachineKeyStore;
                 return new RSACryptoServiceProvider(cspparams);
             }
 
