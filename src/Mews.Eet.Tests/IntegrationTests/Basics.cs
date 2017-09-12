@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
+using Mews.Eet.Communication;
 using Mews.Eet.Dto;
 using Mews.Eet.Dto.Identifiers;
+using Mews.Eet.Providers;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -11,6 +14,7 @@ namespace Mews.Eet.Tests.IntegrationTests
 {
     public class Basics
     {
+        private readonly CertificateHelper _certificateHelper = new CertificateHelper();
         [Fact]
         public async Task SendRevenueSimple()
         {
@@ -39,10 +43,7 @@ namespace Mews.Eet.Tests.IntegrationTests
         {
             var fixture = Fixtures.Third;
 
-            var certificate = new Certificate(
-                password: fixture.CertificatePassword,
-                data: fixture.CertificateData
-            );
+            var certificate = CreateCertificate(fixture);
             var record = new RevenueRecord(
                 identification: new Identification(
                     taxPayerIdentifier: new TaxIdentifier(fixture.TaxId),
@@ -73,7 +74,7 @@ namespace Mews.Eet.Tests.IntegrationTests
         public async Task HandlesError()
         {
             var certificate = CreateCertificate(Fixtures.First);
-            var record =  new RevenueRecord(
+            var record = new RevenueRecord(
                     identification: new Identification(
                     taxPayerIdentifier: new TaxIdentifier("CZ111444789"),
                     registryIdentifier: new RegistryIdentifier("01"),
@@ -208,17 +209,65 @@ namespace Mews.Eet.Tests.IntegrationTests
             await client.SendRevenueAsync(record);
         }
 
-
-
-        private Certificate CreateCertificate(TaxPayerFixture fixture)
+        //[Fact]
+        public async Task SendRevenueUsingCertificateStore()
         {
-            return new Certificate(
-                password: fixture.CertificatePassword,
-                data: fixture.CertificateData
+            var fixture = Fixtures.Fourth;
+
+            var certificate = CreateCertificateFromCertificateStore(fixture);
+            var record = new RevenueRecord(
+                identification: new Identification(
+                    taxPayerIdentifier: new TaxIdentifier(fixture.TaxId),
+                    registryIdentifier: new RegistryIdentifier("01"),
+                    premisesIdentifier: new PremisesIdentifier(fixture.PremisesId),
+                    certificate: certificate
+                ),
+                revenue: new Revenue(
+                    gross: new CurrencyValue(1234.00m),
+                    notTaxable: new CurrencyValue(0.00m),
+                    standardTaxRate: new TaxRateItem(
+                        net: new CurrencyValue(100.00m),
+                        tax: new CurrencyValue(21.00m),
+                        goods: null
+                    )
+                ),
+                billNumber: new BillNumber("2016-123")
             );
+            var client = new EetClient(certificate, EetEnvironment.Playground);
+            var response = await client.SendRevenueAsync(record);
+            Assert.Null(response.Error);
+            Assert.NotNull(response.Success);
+            Assert.NotNull(response.Success.FiscalCode);
+            Assert.False(response.Warnings.Any());
         }
 
-        private RevenueRecord CreateSimpleRecord(Certificate certificate, TaxPayerFixture fixture)
+        private Certificate CreateCertificate(TaxPayerFixture fixture, bool useMachineKeyStore = false)
+        {
+            var x509Certificate =
+                _certificateHelper.GetCertificate(new FileSystemCertificateParams
+                {
+                    FilePath = fixture.CertificatePath,
+                    Password = fixture.CertificatePassword,
+                    UseMachienceKeyStore = useMachineKeyStore
+                });
+            var key = _certificateHelper.GetKey(x509Certificate);
+            return new Certificate(x509Certificate, key);
+        }
+        private Certificate CreateCertificateFromCertificateStore(TaxPayerFixtureForCertificateStore fixture)
+        {
+            var x509Certificate =
+                _certificateHelper.GetCertificate(new CertificatesStoreParams
+                {
+                    StoreLocation = fixture.StoreLocation,
+                    StoreName = fixture.StoreName,
+                    FindType = fixture.FindType,
+                    FindValue = fixture.FindValue
+                });
+            var key = _certificateHelper.GetKey(x509Certificate);
+            return new Certificate(x509Certificate, key);
+        }
+
+       private RevenueRecord CreateSimpleRecord(Certificate certificate, TaxPayerFixture fixture)
         {
             return new RevenueRecord(
                 identification: new Identification(

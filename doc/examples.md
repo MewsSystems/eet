@@ -55,3 +55,17 @@ client.XmlMessageSerialized += (sender, args) =>
     var xmlString = args.XmlElement.OuterXml;
 };
 ```
+### Storing Certificate in Certificate store
+
+- Install the provided certificate in Windows certificate store 
+- Create an instance of CertificatesStoreParams class and assign values to all the properties accordingly
+            StoreLocation = StoreLocation.CurrentUser (or StoreLocation.LocalMachine),
+            StoreName = StoreName.My (or StoreName.My or StoreName.TrustedPeople etc),
+            FindType = X509FindType.FindBySubjectName (or X509FindType.FindBySerialNumber etc),
+            FindValue = "CZ00000019" (the value of the field, which we are stating in "FindType" property)
+- FindValue: Open certificate store and double click on the certificate. Navigate to Details tab on the pop-up. 
+			 You can see the fields and there respective values.
+			 
+- To see the complete usage please open the Basics.cs inside the Mews.Eet.Tests project and go through the below test methods:
+			SendRevenueUsingCertificateStore
+			SendRevenueRecordUsingCertificateStore

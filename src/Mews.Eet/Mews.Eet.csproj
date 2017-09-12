@@ -106,6 +106,13 @@
     <Compile Include="Communication\SignedXmlWithId.cs" />
     <Compile Include="Communication\SoapMessage.cs" />
     <Compile Include="Communication\SoapSigner.cs" />
+    <Compile Include="Providers\AsymmetricAlgorithmProvider.cs" />
+    <Compile Include="CertificateHelper.cs" />
+    <Compile Include="Providers\ICertificateProvider.cs" />
+    <Compile Include="Providers\CertificatesStoreCertificateProvider.cs" />
+    <Compile Include="Providers\CertificatesStoreParams.cs" />
+    <Compile Include="Providers\FileSystemCertificateParams.cs" />
+    <Compile Include="Providers\FileSystemCertificateProvider.cs" />
     <Compile Include="StringHelpers.cs" />
     <Compile Include="XmlManipulator.cs" />
   </ItemGroup>

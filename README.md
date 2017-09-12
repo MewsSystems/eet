@@ -24,9 +24,16 @@ Various usages are demonstrated in our test cases.
 
 ### Simplest usage example
 ```csharp
+ CertificateHelper certificateHelper = new CertificateHelper();
+           var x509Certificate = _certificateHelper.GetCertificate(new FileSystemCertificateParams
+            {
+                FilePath = "CertificatePath",
+                Password = "CertificatePassword",
+                UseMachienceKeyStore = false
+            });
 var certificate = new Certificate(
-    password: "certificatePassword",
-    data: certificateContentsByteArray
+   x509Certificate:  x509Certificate,
+   key :  _certificateHelper.GetKey(x509Certificate)
 );
 
 var record = new RevenueRecord(
