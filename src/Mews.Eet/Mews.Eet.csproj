@@ -108,6 +108,7 @@
     <Compile Include="Communication\SoapSigner.cs" />
     <Compile Include="Providers\AsymmetricAlgorithmProvider.cs" />
     <Compile Include="CertificateHelper.cs" />
+    <Compile Include="Providers\IAsymmetricAlgorithmProvider.cs" />
     <Compile Include="Providers\ICertificateProvider.cs" />
     <Compile Include="Providers\CertificatesStoreCertificateProvider.cs" />
     <Compile Include="Providers\CertificatesStoreParams.cs" />
