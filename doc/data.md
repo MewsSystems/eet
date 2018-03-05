@@ -4,7 +4,7 @@
 |-----|-----------|
 |BillNumber|Number of the bill you are reporting. It has to be sequential and unique number, max. 25 chars.|
 |CurrencyValue|The bill value in CZK.|
-|PremisesId|Location/branch/premises ID assigned by the Czech government. Most venues here in Prague have 11 - probably 1 for Prague region, 1 for 1st premises.|
+|PremisesId|Location/branch/premises ID assigned by the Czech government. Most common ID is 11.|
 |RegistryId|Registry/node ID. Note that 2 employees cannot use the same registry during the same shift as per the law. Also, you should not issue 2 bills from the same registry at the very same second. It cannot be longer than 20 chars.|
 |TaxId|Taxpayer VAT ID assigned by the ministry of finance.|
 |IsFirstAttempt|Report retry. It may happen that you report a bill, the EET API receives the request, processes it but you never retrieve the response (e.g. network fails) - they want us to explicitly state that we are trying for a bill we have already tried to report and it's not a duplicate bill number.|
