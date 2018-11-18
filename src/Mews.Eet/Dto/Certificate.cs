@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mews.Eet.Extensions;
+using System;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
@@ -49,16 +50,7 @@ namespace Mews.Eet.Dto
                     continue;
                 }
 
-                var key = certificate.PrivateKey as RSACryptoServiceProvider;
-                var exportParameters = key.ExportParameters(includePrivateParameters: true);
-                var cspParameters = new CspParameters
-                {
-                    ProviderName = "Microsoft Enhanced RSA and AES Cryptographic Provider",
-                    Flags = UseMachineKeyStore ? CspProviderFlags.UseMachineKeyStore : CspProviderFlags.NoFlags
-                };
-                var result = new RSACryptoServiceProvider(cspParameters);
-                result.ImportParameters(exportParameters);
-                return result;
+				return certificate.GetPrivateKeyRsaCryptoServiceProvider(UseMachineKeyStore);
             }
 
             throw new ArgumentException("The provided certificate does not have any private keys.");

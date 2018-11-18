@@ -31,7 +31,7 @@ namespace Mews.Eet.Tests.IntegrationTests
             var certificate = CreateCertificate(Fixtures.Second);
             var record = CreateSimpleRecord(certificate, Fixtures.Second);
             var client = new EetClient(certificate, EetEnvironment.Playground, TimeSpan.FromMilliseconds(1));
-            await Assert.ThrowsAsync<TaskCanceledException>(async () => await client.SendRevenueAsync(record));
+            await Assert.ThrowsAsync<OperationCanceledException>(async () => await client.SendRevenueAsync(record));
         }
 
         [Fact]
