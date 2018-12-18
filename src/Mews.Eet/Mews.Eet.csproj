@@ -2,6 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <Authors>Jiří Helmich, Martin Šigut</Authors>
+    <PackageProjectUrl>https://github.com/msigut/eet</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/msigut/eet/master/LICENSE</PackageLicenseUrl>
+    <Product>Mews.Eet.NetStandard</Product>
+    <Description>Client for EET - Czech fiscal machines.</Description>
+    <PackageId>Mews.Eet.NetStandard</PackageId>
+    <RepositoryUrl>https://github.com/msigut/eet</RepositoryUrl>
+    <PackageTags>EET Fiscal</PackageTags>
+    <Version>1.1.10</Version>
+    <PackageReleaseNotes>Support .NET Standard 2.0</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
