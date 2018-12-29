@@ -10,10 +10,11 @@
     <Description>Client for EET - Czech fiscal machines.</Description>
     <PackageId>Mews.Eet.NetStandard</PackageId>
     <RepositoryUrl>https://github.com/msigut/eet</RepositoryUrl>
-    <PackageTags>EET Fiscal</PackageTags>
-    <Version>1.1.10</Version>
+    <PackageTags>EET Fiscal Receipt</PackageTags>
+    <Version>1.1.11</Version>
     <PackageReleaseNotes>Support .NET Standard 2.0</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIconUrl>https://raw.githubusercontent.com/msigut/eet/master/receipt.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
