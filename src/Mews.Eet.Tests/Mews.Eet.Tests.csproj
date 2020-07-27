@@ -43,16 +43,16 @@
     <None Update="Data\Certificates\ca.crl.pem">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\Certificates\Playground\EET_CA1_Playground-CZ683555118.p12">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Data\Certificates\Playground\EET_CA1_Playground-CZ1212121218.p12">
+    <None Update="Data\Certificates\Playground\EET_CA1_Playground-ca.crt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Data\Certificates\Playground\EET_CA1_Playground-CZ00000019.p12">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\Certificates\Playground\EET_CA1_Playground-ca.crt">
+    <None Update="Data\Certificates\Playground\EET_CA1_Playground-CZ1212121218.p12">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Certificates\Playground\EET_CA1_Playground-CZ683555118.p12">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
