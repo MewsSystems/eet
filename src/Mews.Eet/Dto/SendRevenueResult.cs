@@ -15,7 +15,7 @@ namespace Mews.Eet.Dto
             var date = confirmation != null ? response.Header.Accepted : response.Header.Rejected;
 
             Id = String.IsNullOrWhiteSpace(response.Header.MessageUuid) ? (Guid?)null : Guid.Parse(response.Header.MessageUuid);
-            Issued = new DateTimeWithTimeZone(date, DateTimeWithTimeZone.CzechTimeZone);
+            Issued = new DateTimeWithTimeZone(date.ToUniversalTime(), TimeZoneInfo.Utc);
             SecurityCode = response.Header.SecurityCode;
             Success = confirmation != null ? new SendRevenueSuccess(confirmation.FiscalCode) : null;
             Error = rejection != null ? new SendRevenueError(new Fault(
