@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
 using Mews.Eet.Dto;
@@ -22,7 +20,6 @@ namespace Mews.Eet.Communication
             SecurityToken = Convert.ToBase64String(certificate.X509Certificate2.GetRawCertData());
             SignatureMethod = GetSignatureMethodUri(signAlgorithm);
             DigestMethod = GetDigestMethod(signAlgorithm);
-            RsaKey = GetRsaKey(signAlgorithm, certificate.X509Certificate2);
         }
 
         private string SecurityToken { get; }
@@ -30,8 +27,6 @@ namespace Mews.Eet.Communication
         private string SignatureMethod { get; }
 
         private string DigestMethod { get; }
-
-        private RSACryptoServiceProvider RsaKey { get; }
 
         private Certificate Certificate { get; }
 
@@ -66,7 +61,7 @@ namespace Mews.Eet.Communication
 
             var signedXml = new SignedXmlWithId(xmlDoc);
             signedXml.SignedInfo.SignatureMethod = SignatureMethod;
-            signedXml.SigningKey = RsaKey;
+            signedXml.SigningKey = Certificate.PrivateKey;
 
             var keyInfo = new KeyInfo();
             keyInfo.AddClause(new SecurityTokenReference("BinaryToken1"));
@@ -86,27 +81,6 @@ namespace Mews.Eet.Communication
             securityNode.AppendChild(signedElement);
 
             return xmlDoc;
-        }
-
-        private RSACryptoServiceProvider GetRsaKey(SignAlgorithm signAlgorithm, X509Certificate2 certificate)
-        {
-            if (signAlgorithm == SignAlgorithm.Sha1)
-            {
-                return certificate.PrivateKey as RSACryptoServiceProvider;
-            }
-
-            if (signAlgorithm == SignAlgorithm.Sha256)
-            {
-                var key = certificate.PrivateKey as RSACryptoServiceProvider;
-                var cspKeyContainerInfo = new RSACryptoServiceProvider().CspKeyContainerInfo;
-                var cspParameters = new CspParameters(cspKeyContainerInfo.ProviderType, cspKeyContainerInfo.ProviderName, key.CspKeyContainerInfo.KeyContainerName)
-                {
-                    Flags = Certificate.UseMachineKeyStore ? CspProviderFlags.UseMachineKeyStore : CspProviderFlags.NoFlags
-                };
-                return new RSACryptoServiceProvider(cspParameters);
-            }
-
-            throw new InvalidEnumArgumentException($"Unsupported signing algorithm {signAlgorithm}.");
         }
 
         private string GetSignatureMethodUri(SignAlgorithm signAlgorithm)

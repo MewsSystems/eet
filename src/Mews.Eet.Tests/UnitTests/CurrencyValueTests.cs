@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Mews.Eet.Tests.UnitTests
 {
-    public class CurencyValueTests
+    public class CurrencyValueTests
     {
         [Fact]
         public void IsDefinedWorks()
