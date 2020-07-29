@@ -20,10 +20,10 @@ namespace Mews.Eet.Dto
         {
             if (useMachineKeyStore)
             {
-                return X509KeyStorageFlags.Exportable | X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet;
+                return X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet;
             }
 
-            return X509KeyStorageFlags.Exportable;
+            return X509KeyStorageFlags.DefaultKeySet;
         }
     }
 }
