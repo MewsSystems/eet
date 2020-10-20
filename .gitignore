@@ -6,4 +6,5 @@
 *.bak
 *.ncb
 *.dtbcache.v2
+src/.vs
 src/packages
