@@ -5,9 +5,9 @@
     <Authors>Jiří Helmich</Authors>
     <PackageProjectUrl>https://github.com/MewsSystems/fiscalization-czechia</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/MewsSystems/fiscalization-czechia/blob/master/LICENSE</PackageLicenseUrl>
-    <Product>Mews.Fiscalization.Czechia.NetStandard</Product>
+    <Product>Mews.Fiscalization.Czechia</Product>
     <Description>Client for EET - Czech fiscal machines.</Description>
-    <PackageId>Mews.Fiscalization.Czechia.NetStandard</PackageId>
+    <PackageId>Mews.Fiscalization.Czechia</PackageId>
     <RepositoryUrl>https://github.com/MewsSystems/fiscalization-czechia</RepositoryUrl>
     <PackageTags>EET Fiscal Receipt</PackageTags>
     <PackageVersion>2.0.1</PackageVersion>
