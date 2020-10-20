@@ -22,7 +22,7 @@ namespace Mews.Eet.Dto
 
         public bool UseMachineKeyStore { get; }
 
-        public RSACryptoServiceProvider Key { get; }
+        public DSACryptoServiceProvider Key { get; }
 
         public X509Certificate2 X509Certificate2 { get; }
 
@@ -38,7 +38,7 @@ namespace Mews.Eet.Dto
             return X509KeyStorageFlags.Exportable;
         }
 
-        private RSACryptoServiceProvider ComputeKey()
+        private DSACryptoServiceProvider ComputeKey()
         {
             var certificateCollection = new X509Certificate2Collection();
             certificateCollection.Import(Data, Password, KeyStorageFlags);
@@ -49,14 +49,14 @@ namespace Mews.Eet.Dto
                     continue;
                 }
 
-                var key = certificate.PrivateKey as RSACryptoServiceProvider;
+                var key = certificate.PrivateKey as DSACryptoServiceProvider;
                 var exportParameters = key.ExportParameters(includePrivateParameters: true);
                 var cspParameters = new CspParameters
                 {
                     ProviderName = "Microsoft Enhanced RSA and AES Cryptographic Provider",
                     Flags = UseMachineKeyStore ? CspProviderFlags.UseMachineKeyStore : CspProviderFlags.NoFlags
                 };
-                var result = new RSACryptoServiceProvider(cspParameters);
+                var result = new DSACryptoServiceProvider(cspParameters);
                 result.ImportParameters(exportParameters);
                 return result;
             }
