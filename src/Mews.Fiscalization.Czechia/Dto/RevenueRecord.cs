@@ -46,7 +46,7 @@ namespace Mews.Eet.Dto
         {
             var content = $"{Identification.TaxPayerIdentifier.Value}|{Identification.PremisesIdentifier.Value}|{Identification.RegistryIdentifier.Value}|{BillNumber.Value}|{StringHelpers.FormatForEet(Revenue.Accepted)}|{StringHelpers.FormatForEet(Revenue.Gross.Value)}";
             var hash = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(content));
-            var formatter = new RSAPKCS1SignatureFormatter(Identification.Certificate.Key);
+            var formatter = new RSAPKCS1SignatureFormatter(Identification.Certificate.PrivateKey);
             formatter.SetHashAlgorithm("SHA256");
             return formatter.CreateSignature(hash);
         }

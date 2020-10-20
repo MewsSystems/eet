@@ -27,7 +27,6 @@ namespace Mews.Eet.Tests.IntegrationTests
         [Fact]
         public async Task TimeoutWorks()
         {
-
             var certificate = CreateCertificate(Fixtures.Second);
             var record = CreateSimpleRecord(certificate, Fixtures.Second);
             var client = new EetClient(certificate, EetEnvironment.Playground, TimeSpan.FromMilliseconds(1));
@@ -88,7 +87,7 @@ namespace Mews.Eet.Tests.IntegrationTests
             var client = new EetClient(certificate, EetEnvironment.Playground);
             var response = await client.SendRevenueAsync(record);
             Assert.NotNull(response.Error);
-            Assert.Equal(4, response.Error.Reason.Code);
+            Assert.Equal(6, response.Error.Reason.Code);
         }
 
         [Fact]
