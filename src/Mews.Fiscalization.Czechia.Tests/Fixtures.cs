@@ -6,37 +6,37 @@ namespace Mews.Eet.Tests
 {
     public class Fixtures
     {
+        public static readonly string TaxId1 = Environment.GetEnvironmentVariable("tax_id_1") ?? "INSERT_TAX_ID_1";
+        public static readonly string TaxId2 = Environment.GetEnvironmentVariable("tax_id_2") ?? "INSERT_TAX_ID_2";
+        public static readonly string TaxId3 = Environment.GetEnvironmentVariable("tax_id_3") ?? "INSERT_TAX_ID_3";
+        public static readonly string CertificateData1 = Environment.GetEnvironmentVariable("certificate_data_1") ?? "INSERT_CERTIFICATE_DATA_1";
+        public static readonly string CertificateData2 = Environment.GetEnvironmentVariable("certificate_data_2") ?? "INSERT_CERTIFICATE_DATA_2";
+        public static readonly string CertificateData3 = Environment.GetEnvironmentVariable("certificate_data_3") ?? "INSERT_CERTIFICATE_DATA_3";
+        public static readonly string CertificatePassword = Environment.GetEnvironmentVariable("certificate_password") ?? "INSERT_CERTIFICATE_PASSWORD";
+
         public static TaxPayerFixture First = new TaxPayerFixture
         {
-            TaxId = "CZ1212121218",
+            TaxId = TaxId1,
             PremisesId = 1,
-            CertificatePassword = "eet",
-            CertificateData = File.ReadAllBytes(GetPath("Data/Certificates/Playground/EET_CA1_Playground-CZ1212121218.p12"))
+            CertificatePassword = CertificatePassword,
+            CertificateData = Convert.FromBase64String(CertificateData1)
         };
 
         public static TaxPayerFixture Second = new TaxPayerFixture
         {
-            TaxId = "CZ00000019",
+            TaxId = TaxId2,
             PremisesId = 1,
-            CertificatePassword = "eet",
-            CertificateData = File.ReadAllBytes(GetPath("Data/Certificates/Playground/EET_CA1_Playground-CZ00000019.p12"))
+            CertificatePassword = CertificatePassword,
+            CertificateData = Convert.FromBase64String(CertificateData2)
         };
 
         public static TaxPayerFixture Third = new TaxPayerFixture
         {
-            TaxId = "CZ683555118",
+            TaxId = TaxId3,
             PremisesId = 1,
-            CertificatePassword = "eet",
-            CertificateData = File.ReadAllBytes(GetPath("Data/Certificates/Playground/EET_CA1_Playground-CZ683555118.p12"))
+            CertificatePassword = CertificatePassword,
+            CertificateData = Convert.FromBase64String(CertificateData3)
         };
-
-        private static string GetPath(string relativePath)
-        {
-            var codeBaseUrl = new Uri(Assembly.GetExecutingAssembly().CodeBase);
-            var codeBasePath = Uri.UnescapeDataString(codeBaseUrl.AbsolutePath);
-            var dirPath = Path.GetDirectoryName(codeBasePath);
-            return Path.Combine(dirPath, relativePath);
-        }
     }
 
     public class TaxPayerFixture

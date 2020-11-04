@@ -46,13 +46,13 @@
     <None Update="Data\Certificates\Playground\EET_CA1_Playground-ca.crt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\Certificates\Playground\EET_CA1_Playground-CZ00000019.p12">
+    <None Update="Data\Certificates\Playground\EET_CA1_Playground-Tax_Id2.p12">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\Certificates\Playground\EET_CA1_Playground-CZ1212121218.p12">
+    <None Update="Data\Certificates\Playground\EET_CA1_Playground-Tax_Id1.p12">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\Certificates\Playground\EET_CA1_Playground-CZ683555118.p12">
+    <None Update="Data\Certificates\Playground\EET_CA1_Playground-Tax_Id3.p12">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
