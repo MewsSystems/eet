@@ -6,28 +6,33 @@ namespace Mews.Eet.Tests
 {
     public class Fixtures
     {
+        public static readonly string TaxId1 = Environment.GetEnvironmentVariable("tax_id_1") ?? "INSERT_TAX_ID_1";
+        public static readonly string TaxId2 = Environment.GetEnvironmentVariable("tax_id_2") ?? "INSERT_TAX_ID_2";
+        public static readonly string TaxId3 = Environment.GetEnvironmentVariable("tax_id_3") ?? "INSERT_TAX_ID_3";
+        public static readonly string CertificatePassword = Environment.GetEnvironmentVariable("certificate_password") ?? "INSERT_CERTIFICATE_PASSWORD";
+
         public static TaxPayerFixture First = new TaxPayerFixture
         {
-            TaxId = "CZ1212121218",
+            TaxId = TaxId1,
             PremisesId = 1,
-            CertificatePassword = "eet",
-            CertificateData = File.ReadAllBytes(GetPath("Data/Certificates/Playground/EET_CA1_Playground-CZ1212121218.p12"))
+            CertificatePassword = CertificatePassword,
+            CertificateData = File.ReadAllBytes(GetPath("Data/Certificates/Playground/EET_CA1_Playground-Tax_Id1.p12"))
         };
 
         public static TaxPayerFixture Second = new TaxPayerFixture
         {
-            TaxId = "CZ00000019",
+            TaxId = TaxId2,
             PremisesId = 1,
-            CertificatePassword = "eet",
-            CertificateData = File.ReadAllBytes(GetPath("Data/Certificates/Playground/EET_CA1_Playground-CZ00000019.p12"))
+            CertificatePassword = CertificatePassword,
+            CertificateData = File.ReadAllBytes(GetPath("Data/Certificates/Playground/EET_CA1_Playground-Tax_Id2.p12"))
         };
 
         public static TaxPayerFixture Third = new TaxPayerFixture
         {
-            TaxId = "CZ683555118",
+            TaxId = TaxId3,
             PremisesId = 1,
-            CertificatePassword = "eet",
-            CertificateData = File.ReadAllBytes(GetPath("Data/Certificates/Playground/EET_CA1_Playground-CZ683555118.p12"))
+            CertificatePassword = CertificatePassword,
+            CertificateData = File.ReadAllBytes(GetPath("Data/Certificates/Playground/EET_CA1_Playground-Tax_Id3.p12"))
         };
 
         private static string GetPath(string relativePath)
