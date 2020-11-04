@@ -40,5 +40,8 @@ jobs:
         tax_id_1: ${{secrets.tax_id_1}}
         tax_id_2: ${{secrets.tax_id_2}}
         tax_id_3: ${{secrets.tax_id_3}}
+        certificate_data_1: ${{secrets.certificate_data_1}}
+        certificate_data_2: ${{secrets.certificate_data_2}}
+        certificate_data_3: ${{secrets.certificate_data_3}}
         certificate_password: ${{secrets.certificate_password}}
       run: dotnet test --no-restore --verbosity normal
