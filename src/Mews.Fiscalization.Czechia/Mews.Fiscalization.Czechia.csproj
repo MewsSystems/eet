@@ -10,7 +10,6 @@
     <PackageId>Mews.Fiscalization.Czechia</PackageId>
     <RepositoryUrl>https://github.com/MewsSystems/fiscalization-czechia</RepositoryUrl>
     <PackageTags>EET Fiscal Receipt</PackageTags>
-    <PackageVersion>2.0.2</PackageVersion>
     <PackageReleaseNotes>Support .NET Standard 2.0</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Icon>https://raw.githubusercontent.com/msigut/eet/master/receipt.png</Icon>
