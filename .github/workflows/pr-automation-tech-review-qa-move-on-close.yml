@@ -11,4 +11,4 @@
          with:
            project: tech.review.qa
            column: Ready to test
-           repo-token: ${{ secrets.githubMewsCiPersonalAccessToken }}
+           repo-token: ${{ secrets.TECH_ACCOUNT_PERSONAL_ACCESS_TOKEN }}
