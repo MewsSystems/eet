@@ -16,6 +16,12 @@ It's an online API provided by the Ministry of Finance in a form of a SOAP Web S
 ## Known issues
 - [8](https://github.com/MewsSystems/eet/issues/8): As the communication is done fully via HTTPS, we postponed the implementation of response signature verification. It's a potential security risk that will be addressed in upcoming releases.
 
+## Security protocol
+- TLS 1.2 protocol must be enabled, that can be achieved by adding the following line to your code:
+```csharp
+ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12
+```
+
 ## Usage
 We tend to use immutable DTOs wherever possible, especially to ensure data validity.
 We want the library to throw an error as soon as possible, i.e. when constructing corresponding data structures.
