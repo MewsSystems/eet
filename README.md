@@ -1,4 +1,4 @@
-[![Build Status](https://mews.visualstudio.com/Mews/_apis/build/status/MewsSystems.fiscalization-spain?branchName=master)](https://mews.visualstudio.com/Mews/_build/latest?definitionId=4&branchName=master)
+![Build Status](https://github.com/MewsSystems/fiscalization-czechia/actions/workflows/build-and-test.yml/badge.svg)
 
 # EET
 EET stands for Elektronická Evidence Tržeb, which is Czech version of Fiscal Printers.
